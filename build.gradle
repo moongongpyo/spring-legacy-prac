@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.6.8'
 	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
 	id 'java'
+	id'war'
 }
 
 group = 'com.example'
@@ -13,8 +14,10 @@ repositories {
 }
 
 dependencies {
-	//Oracle 드라이버 추가
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	//PostgreSQL 드라이버 추가
+
+		runtimeOnly 'org.postgresql:postgresql'
+
 	//롬복 추가
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -22,10 +25,17 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	runtimeOnly 'com.h2database:h2'
+	//runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+apply plugin: 'war'
+
+bootWar {
+
+	 archiveName("project_name.war")
+
 }
