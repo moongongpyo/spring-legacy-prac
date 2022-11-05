@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class DebuggingAspect {
 
-    //대상 메소드 선택: CommentService#create()
-    @Pointcut("execution(* com.example.KangnamShare.service.CommentService.*(..))")
+    //대상 메소드 선택: api 패키지의 모든 메소드
+    @Pointcut("execution(* com.example.KangnamShare.api.*.*(..))")
     private void cut(){}
 
     //실행 시점 설정:cut()의 대상이 수행되기 이전
@@ -36,7 +36,6 @@ public class DebuggingAspect {
         //CommentService#create()의 입력값 =>CommentDto(id=null, ...)
         for(Object obj : args){ //foreach 문
             log.info("{}#{}의 입력값 =>{}",className,methodName,obj);
-
         }
     }
 

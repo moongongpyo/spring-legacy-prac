@@ -1,8 +1,7 @@
 package com.example.KangnamShare.controller;
 
 
-import ch.qos.logback.core.net.SyslogOutputStream;
-import com.example.KangnamShare.dto.ArticleForm;
+import com.example.KangnamShare.dto.ArticleDTO;
 import com.example.KangnamShare.dto.CommentDto;
 import com.example.KangnamShare.entity.Article;
 import com.example.KangnamShare.repository.ArticleRepository;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @Slf4j//로깅을 위한 어노테이션
@@ -32,7 +30,7 @@ public class ArticleController {
         return "articles/new";
     }
     @PostMapping("/articles/create")
-    public String createArticle(ArticleForm form){
+    public String createArticle(ArticleDTO form){
         log.info(form.toString());
         //System.out.println(form.toString());  ->로깅기능을 대체
 
@@ -78,7 +76,7 @@ public class ArticleController {
         return "articles/edit";
     }
     @PostMapping("articles/update")
-    public String update(ArticleForm form){
+    public String update(ArticleDTO form){
         log.info(form.toString());
 
         //1:Dto를 엔티티로 변환

@@ -1,12 +1,10 @@
 package com.example.KangnamShare.service;
 
-import com.example.KangnamShare.dto.ArticleForm;
+import com.example.KangnamShare.dto.ArticleDTO;
 import com.example.KangnamShare.entity.Article;
 import com.example.KangnamShare.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,23 +26,29 @@ public class ArticleService {
         return articleRepository.findById(id).orElse(null);
     }
 
-    public Article create(ArticleForm dto) {
+    public Article create(ArticleDTO dto) {
         Article article = dto.toEntity();
         if(article.getId() != null)
             return null;
         return articleRepository.save(article);
     }
 
-    public Article update(Long id, ArticleForm dto) {
+    public Article update(Long id, ArticleDTO dto) {
         // 1: DTO -> 엔티티
         Article article = dto.toEntity();
         log.info("id: {}, article: {}", id, article.toString());
         // 2: 타겟 조회
         Article target = articleRepository.findById(id).orElse(null);
-        // 3: 잘못된 요청 처리
+        // 3: 잘못된 요청 처리:json이 비어있거나 아이디가 다를 때
         if (target == null || id != article.getId()) {
             // 400, 잘못된 요청 응답!
             log.info("잘못된 요청! id: {}, article: {}", id, article.toString());
+            return null;
+        }
+        //4:잘못된 요청 처리:게시글 작성자랑 수정하려는 사람이 다를 때
+        if (!articleRepository.findUsernameByArticleId(id).equals(article.getUsername())) {
+            // 400, 잘못된 요청 응답!
+            log.info("잘못된 요청! username: {}, article: {}", articleRepository.findUsernameByArticleId(id), article.toString());
             return null;
         }
         // 4: 업데이트
@@ -54,21 +58,28 @@ public class ArticleService {
 
     }
 
-    public Article delete(Long id) {
+    public Article delete(Long id, String username) {
         //대상찾기
         Article target = articleRepository.findById(id).orElse(null);
 
-        //잘못된 요청 처리
+
+        //잘못된 요청 처리:json이 비어있을 때
         if (target == null)
             return null;
 
+        //4:잘못된 요청 처리:게시글 작성자랑 삭제하려는 사람이 다를 때
+        if (!articleRepository.findUsernameByArticleId(id).equals(username)) {
+            // 400, 잘못된 요청 응답!
+            log.info("잘못된 요청! savedUsername: {}, newUsername: {}", articleRepository.findUsernameByArticleId(id),username);
+            return null;
+        }
         //대상 삭제
         articleRepository.delete(target);
         return target;
     }
 
     @Transactional//해당 메소드를 트랜잭션으로 묶는다!
-    public List<Article> createArticles(List<ArticleForm> dtos) {
+    public List<Article> createArticles(List<ArticleDTO> dtos) {
         //dto 묶음을 entity 묶음으로 변환
         List<Article> articleList=dtos.stream()
                 .map(dto -> dto.toEntity())

@@ -1,17 +1,21 @@
 package com.example.KangnamShare.dto;
 
 import com.example.KangnamShare.entity.Article;
-import lombok.AllArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
 @AllArgsConstructor
 @ToString
 @Setter
-public class ArticleForm {
+
+public class ArticleDTO {
     private Long id;
     private String title;
     private String content;
+    private String username;
     public Article toEntity() {
-        return new Article(id,title,content);
+        return new Article(id,title,content,username);
     }
+
+
+
 }

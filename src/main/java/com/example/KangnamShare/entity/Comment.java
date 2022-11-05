@@ -22,7 +22,7 @@ public class Comment {
     private Article article;
 
     @Column
-    private  String nickname;
+    private  String Username;
 
     @Column
     private String body;
@@ -37,8 +37,8 @@ public class Comment {
         return new Comment(
                  dto.getId(),
                 article,
-                dto.getNickname(),
-                dto.getBody()
+                dto.getBody(),
+                dto.getUsername()
         );
 
     }
@@ -48,8 +48,8 @@ public class Comment {
         if(this.id != dto.getId())
             throw new IllegalArgumentException("댓글 수정 실패! 잘못된 id가 입력되었습니다.");
         //객체를 갱신
-        if(dto.getNickname()!=null)
-            this.nickname = dto.getNickname();
+        if(dto.getUsername()!=null)
+            this.Username = dto.getUsername();
         if(dto.getBody()!=null)
             this.body = dto.getBody();
     }

@@ -2,14 +2,14 @@
     {{#commentDtos}}
         <div class="card m-2" id="comments-{{id}}">
             <div class="card-header">
-                {{nickname}}
+                {{username}}
                 <!-- Button trigger modal -->
                 <button type="button"
                         class="btn btn-sm btn-outline-primary"
                         data-bs-toggle="modal"
                         data-bs-target="#comment-edit-modal"
                         data-bs-id="{{id}}"
-                        data-bs-nickname="{{nickname}}"
+                        data-bs-nickname="{{username}}"
                         data-bs-body="{{body}}"
                         data-bs-article-id="{{articleId}}">수정</button>
                 <!--댓글 삭제 버튼-->
@@ -70,7 +70,7 @@
             const articleId = triggerBtn.getAttribute("data-bs-article-id");
             //console.log(`${id}, ${nickname}, ${body}, ${articleId}`);
             // 데이터를 반영
-            document.querySelector("#edit-comment-nickname").value = nickname;
+            document.querySelector("#edit-comment-username").value = username;
             document.querySelector("#edit-comment-body").value = body;
             document.querySelector("#edit-comment-id").value = id;
             document.querySelector("#edit-comment-article-id").value = articleId;
@@ -89,7 +89,7 @@
            //수정 댓글 객체 생성
             const comment = {
                 id: document.querySelector("#edit-comment-id").value,
-                nickname: document.querySelector("#edit-comment-nickname").value,
+                nickname: document.querySelector("#edit-comment-username").value,
                 body: document.querySelector("#edit-comment-body").value,
                 article_id: document.querySelector("#edit-comment-article-id").value
 

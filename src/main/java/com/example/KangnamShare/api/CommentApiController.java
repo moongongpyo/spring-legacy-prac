@@ -32,20 +32,21 @@ public class CommentApiController {
         return ResponseEntity.status(HttpStatus.OK).body(createdDto);
     }
     //댓글 수정
-    @PatchMapping("/api/comments/{id}")
-    public ResponseEntity <CommentDto> update(@PathVariable("id") Long id ,@RequestBody CommentDto dto){
+    @PatchMapping("/api/comments")
+    public ResponseEntity <CommentDto> update(@RequestBody CommentDto dto){
         //서비스에게 위임
-        CommentDto updatedDto = commentService.update(id,dto);
+        CommentDto updatedDto = commentService.update(dto.getId(), dto,dto.getUsername());
         //결과 응답
-        return ResponseEntity.status(HttpStatus.OK).body(updatedDto);
+        return (updatedDto != null) ? ResponseEntity.status(HttpStatus.OK).body(updatedDto) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
     //댓글 삭제
     @RunningTime
-    @DeleteMapping("/api/comments/{id}")
-    public ResponseEntity <CommentDto> delete(@PathVariable("id") Long id){
+    @DeleteMapping("/api/comments/{id}/{username}")
+    public ResponseEntity <CommentDto> delete(@PathVariable("id") Long id,@PathVariable String username){
         //서비스에게 위임
-        CommentDto deletedDto = commentService.delete(id);
+        CommentDto deletedDto = commentService.delete(id,username);
         //결과 응답
-        return ResponseEntity.status(HttpStatus.OK).body(deletedDto);
+
+        return (deletedDto != null) ? ResponseEntity.status(HttpStatus.OK).body(deletedDto) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 }

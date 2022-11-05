@@ -57,9 +57,15 @@ public class CommentService {
 
     }
     @Transactional
-    public CommentDto update(Long id, CommentDto dto) {
+    public CommentDto update(Long id, CommentDto dto,String username) {
         //댓글 조회 및 예외 발생
         Comment target = commentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("댓글 수정 실패! 대상 댓글이 없습니다."));
+        //4:잘못된 요청 처리:게시글 작성자랑 수정하려는 사람이 다를 때
+
+        if (!commentRepository.findUsernameByCommentId(id).equals(username)) {
+            // 400, 잘못된 요청 응답!
+            log.info("잘못된 요청! savedusername: {}, newusername: {}", commentRepository.findUsernameByCommentId(id), username);
+            return null;}
         //댓글 수정
         target.patch(dto);
         //DB로 갱신
@@ -70,9 +76,15 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentDto delete(Long id) {
+    public CommentDto delete(Long id,String username) {
     //댓글 조회(및 예외 발생)
        Comment target = commentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("댓글 삭제 실패! 대상이 없습니다"));
+        if (!commentRepository.findUsernameByCommentId(id).equals(username)) {
+            // 400, 잘못된 요청 응답!
+            log.info("잘못된 요청! savedusername: {}, newusername: {}", commentRepository.findUsernameByCommentId(id), username);
+            return null;
+        }
+
         //댓글 DB에서 삭제
         commentRepository.delete(target);
         //삭제 댓글을 DTO로 반환
