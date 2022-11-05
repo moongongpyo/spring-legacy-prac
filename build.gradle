@@ -16,7 +16,7 @@ repositories {
 dependencies {
 	//PostgreSQL 드라이버 추가
 
-		runtimeOnly 'org.postgresql:postgresql'
+	//runtimeOnly 'org.postgresql:postgresql'
 
 	//롬복 추가
 	compileOnly 'org.projectlombok:lombok'
@@ -25,7 +25,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	//runtimeOnly 'com.h2database:h2'
+	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

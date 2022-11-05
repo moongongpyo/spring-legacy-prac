@@ -1,5 +1,6 @@
 package com.example.KangnamShare.api;
 
+import com.example.KangnamShare.annotation.RunningTime;
 import com.example.KangnamShare.dto.CommentDto;
 import com.example.KangnamShare.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,7 @@ public class CommentApiController {
         return ResponseEntity.status(HttpStatus.OK).body(updatedDto);
     }
     //댓글 삭제
+    @RunningTime
     @DeleteMapping("/api/comments/{id}")
     public ResponseEntity <CommentDto> delete(@PathVariable("id") Long id){
         //서비스에게 위임

@@ -5,6 +5,7 @@ import com.example.KangnamShare.entity.Article;
 import com.example.KangnamShare.entity.Comment;
 import com.example.KangnamShare.repository.ArticleRepository;
 import com.example.KangnamShare.repository.CommentRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@Slf4j
 @Service
 public class CommentService {
 
@@ -53,6 +54,7 @@ public class CommentService {
         Comment created = commentRepository.save(comment);
         //DTO로 변경하여 반환
         return CommentDto.createCommentDto(created);
+
     }
     @Transactional
     public CommentDto update(Long id, CommentDto dto) {
