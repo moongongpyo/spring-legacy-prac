@@ -24,10 +24,10 @@ public class CommentApiController {
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
     //댓글 생성
-    @PostMapping("/api/articles/{articleId}/comments")
-    public ResponseEntity <CommentDto> create(@PathVariable("articleId") Long articleId ,@RequestBody CommentDto dto){
+    @PostMapping("/api/articles/comments")
+    public ResponseEntity <CommentDto> create(@RequestBody CommentDto dto){
         //서비스에게 위임
-        CommentDto createdDto = commentService.create(articleId,dto);
+        CommentDto createdDto = commentService.create(dto);
         //결과 응답
         return ResponseEntity.status(HttpStatus.OK).body(createdDto);
     }
