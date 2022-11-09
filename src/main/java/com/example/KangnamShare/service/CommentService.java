@@ -23,6 +23,9 @@ public class CommentService {
     @Autowired
     private ArticleRepository articleRepository;
 
+
+
+
     public List<CommentDto> comments(Long articleId) {
        /* // 조회: 댓글 목록
          List<Comment> comments= commentRepository.findByArticleId(articleId);

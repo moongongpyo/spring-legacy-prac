@@ -33,14 +33,14 @@
             console.log("버튼이 클릭되었습니다.")
             //새 댓글 객체 생성
             const comment = {
-                nickname:document.querySelector("#new-comment-nickname").value,
+                username:document.querySelector("#new-comment-nickname").value,
                 body:document.querySelector("#new-comment-body").value,
                 article_id:document.querySelector("#new-comment-article-id").value
             };
             //댓글 객체 출력
             console.log(comment);
             //fetch() - Talend API 요청을 JavaScript로 보내준다!
-            const url = "/api/articles/"+comment.article_id+"/comments";
+            const url = "/api/articles/comments";
             fetch(url, {
                 method: "post",                //POST요청
                 body: JSON.stringify(comment), //comment JS 객체를 JSON으로 변경하여 보냄

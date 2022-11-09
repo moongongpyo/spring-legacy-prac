@@ -15,7 +15,8 @@
                 <!--댓글 삭제 버튼-->
                 <button type="button"
                         class ="btn btn-sm btn-outline-danger comment-delete-btn"
-                        data-comment-id="{{id}}">삭제</button>
+                        data-comment-id="{{id}}"
+                        data-comment-username="{{username}}">삭제</button>
             </div>
             <div class="card-body">
                 {{body}}
@@ -37,7 +38,7 @@
                     <!-- 닉네임 입력 -->
                     <div class="mb-3">
                         <label class="form-label">닉네임</label>
-                        <input type="text" class="form-control form-control-sm" id="edit-comment-nickname">
+                        <input type="text" class="form-control form-control-sm" id="edit-comment-username">
                     </div>
                     <!-- 댓글 본문 입력 -->
                     <div class="mb-3">
@@ -65,10 +66,10 @@
             const triggerBtn = event.relatedTarget;
             // 데이터 가져오기
             const id = triggerBtn.getAttribute("data-bs-id");
-            const nickname = triggerBtn.getAttribute("data-bs-nickname");
+            const username = triggerBtn.getAttribute("data-bs-nickname");
             const body = triggerBtn.getAttribute("data-bs-body");
             const articleId = triggerBtn.getAttribute("data-bs-article-id");
-            //console.log(`${id}, ${nickname}, ${body}, ${articleId}`);
+            console.log(`${id}, ${username}, ${body}, ${articleId}`);
             // 데이터를 반영
             document.querySelector("#edit-comment-username").value = username;
             document.querySelector("#edit-comment-body").value = body;
@@ -89,7 +90,7 @@
            //수정 댓글 객체 생성
             const comment = {
                 id: document.querySelector("#edit-comment-id").value,
-                nickname: document.querySelector("#edit-comment-username").value,
+                username: document.querySelector("#edit-comment-username").value,
                 body: document.querySelector("#edit-comment-body").value,
                 article_id: document.querySelector("#edit-comment-article-id").value
 
@@ -97,7 +98,7 @@
             }
 
            //수정 REST API호출 -  fetch()
-            const url = "/api/comments/" + comment.id;
+            const url = "/api/comments/";
             fetch(url,{
                 method:"PATCH",
                 body:JSON.stringify(comment),
@@ -131,11 +132,12 @@
                 //이벤트 발생 요소 선택
                const commentDeleteBtn = event.srcElement;
                //삭제 댓글  id 가져오기
+                const Username = commentDeleteBtn.getAttribute("data-comment-username")
                 const commentId = commentDeleteBtn.getAttribute("data-comment-id");
                 console.log(`삭제버튼클릭: ${commentId}번 댓글`); //= "삭제버튼클릭:" +commentId +"번 댓글"
 
                 //삭제 API호출 및 처리
-                const url = `/api/comments/${commentId}`;
+                const url = `/api/comments/${commentId}/${Username}`;
                 fetch(url,{
                     method: "DELETE"
 
