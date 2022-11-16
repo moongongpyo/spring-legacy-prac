@@ -3,6 +3,7 @@ package com.example.KangnamShare.api;
 import com.example.KangnamShare.annotation.RunningTime;
 import com.example.KangnamShare.dto.CommentDto;
 import com.example.KangnamShare.service.CommentService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +38,7 @@ public class CommentApiController {
         //서비스에게 위임
         CommentDto updatedDto = commentService.update(dto.getId(), dto,dto.getUsername());
         //결과 응답
-        return (updatedDto != null) ? ResponseEntity.status(HttpStatus.OK).body(updatedDto) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return (updatedDto != null) ? ResponseEntity.status(HttpStatus.OK).body(updatedDto) : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
     //댓글 삭제
     @RunningTime
@@ -47,6 +48,7 @@ public class CommentApiController {
         CommentDto deletedDto = commentService.delete(id,username);
         //결과 응답
 
-        return (deletedDto != null) ? ResponseEntity.status(HttpStatus.OK).body(deletedDto) : ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        return ResponseEntity.status(HttpStatus.OK).body(deletedDto);
+//        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 }

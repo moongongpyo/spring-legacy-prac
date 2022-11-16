@@ -78,10 +78,11 @@ public class CommentService {
     public CommentDto delete(Long id,String username) {
     //댓글 조회(및 예외 발생)
        Comment target = commentRepository.findById(id).orElseThrow(()->new IllegalArgumentException("댓글 삭제 실패! 대상이 없습니다"));
-        if (!commentRepository.findUsernameByCommentId(id).equals(username)) {
+
+        if (!target.getUsername().equals(username)) {
             // 400, 잘못된 요청 응답!
-            log.info("잘못된 요청! savedusername: {}, newusername: {}", commentRepository.findUsernameByCommentId(id), username);
-            return null;
+            log.info("잘못된 요청! savedusername: {}, newusername: {}", target.getUsername(), username);
+            throw new IllegalArgumentException();
         }
         //댓글 DB에서 삭제
         commentRepository.delete(target);
