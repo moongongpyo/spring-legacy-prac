@@ -12,8 +12,12 @@ public class ArticleDTO {
     private String title;
     private String content;
     private String username;
+
+    private String categories;
+
+    private Long price;
     public Article toEntity() {
-        return new Article(id,title,content,username);
+        return new Article(id,title,content,username,categories,price);
     }
 
 

@@ -25,6 +25,11 @@ public class Article {
 
     @Column
     private String username;
+
+    @Column
+    private String categories;
+
+    @Column Long price;
     public void patch(Article article){
         if(article.title != null)
             this.title = article.title;
@@ -32,6 +37,10 @@ public class Article {
             this.content = article.content;
         if(article.username != null)
             this.username = article.username;
+        if(article.categories != null)
+            this.categories = article.categories;
+        if(article.price != null)
+            this.price = article.price;
 
     }
 
