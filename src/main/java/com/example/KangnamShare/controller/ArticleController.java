@@ -8,6 +8,7 @@ import com.example.KangnamShare.repository.ArticleRepository;
 import com.example.KangnamShare.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +61,7 @@ public class ArticleController {
     @GetMapping("/articles")
     public String index(Model model){
         //1:모든 Article을 가져온다!
-        List<Article> articleEntityList=articleRepository.findAll();
+        List<Article> articleEntityList=articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         //2:가져온 Article 묶음을 뷰로 전달!
         model.addAttribute("articleList",articleEntityList);
         //3:뷰 페이지를 설정!

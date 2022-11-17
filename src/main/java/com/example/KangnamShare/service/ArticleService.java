@@ -5,6 +5,7 @@ import com.example.KangnamShare.entity.Article;
 import com.example.KangnamShare.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +20,7 @@ public class ArticleService {
 
     public List<Article> index() {
 
-        return articleRepository.findAll();
+        return articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
 
     public Article show(Long id) {
