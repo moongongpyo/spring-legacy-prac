@@ -25,22 +25,22 @@ public class Comment {
     private String body;
     @ManyToOne// 해당 댓글 엔티티 여러개가, 하나의 Article에 연관된다!
     @JoinColumn(name = "article_id")//"article_id" 컬럼에 Atrticle의 대표....
-    private Article article;
+    private Posts posts;
 
 
 
-    public static Comment createComment(CommentDto dto, Article article) {
+    public static Comment createComment(CommentDto dto, Posts posts) {
     //예외처리
         if (dto.getId() != null)
             throw new IllegalArgumentException("댓글 생성 실패! 댓글의 id가 없어야 합니다.");
-        if(dto.getArticleId() != article.getId())
+        if(dto.getArticleId() != posts.getId())
             throw new IllegalArgumentException("댓글 생성 실패! 게시글의 id가 잘못되었습니다.");
         //엔티티 생성 및 반환
         return new Comment(
                  dto.getId(),
                 dto.getUsername(),
                 dto.getBody(),
-                article);
+                posts);
 
     }
 

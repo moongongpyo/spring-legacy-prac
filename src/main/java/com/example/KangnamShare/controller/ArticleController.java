@@ -3,7 +3,7 @@ package com.example.KangnamShare.controller;
 
 import com.example.KangnamShare.dto.ArticleDTO;
 import com.example.KangnamShare.dto.CommentDto;
-import com.example.KangnamShare.entity.Article;
+import com.example.KangnamShare.entity.Posts;
 import com.example.KangnamShare.repository.ArticleRepository;
 import com.example.KangnamShare.service.CommentService;
 import lombok.extern.slf4j.Slf4j;
@@ -36,11 +36,11 @@ public class ArticleController {
         //System.out.println(form.toString());  ->로깅기능을 대체
 
         //1.Dto를 Entity로 변환
-        Article article =form.toEntity();
-        log.info(article.toString());
+        Posts posts =form.toEntity();
+        log.info(posts.toString());
 
         //2.Repository에게 Entity를 저장하게함
-        Article saved = articleRepository.save(article);
+        Posts saved = articleRepository.save(posts);
         log.info(saved.toString());
 
         return "redirect:/articles/"+saved.getId();
@@ -50,10 +50,10 @@ public class ArticleController {
         //url요청을 parameter로 받아올 때에는PathVariable 어노테이션을 사용한다
         log.info("id = "+id);
         //1:아 이디로데이터를 가져옴
-        Article articleEntity = articleRepository.findById(id).orElse(null);
+        Posts postsEntity = articleRepository.findById(id).orElse(null);
          List<CommentDto> commentDtos= commentService.comments(id);
         //2:가져온 데이터를 모델에 등록!
-        model.addAttribute("article",articleEntity);
+        model.addAttribute("article", postsEntity);
         model.addAttribute("commentDtos",commentDtos);
         //3:보여줄 페이지를 설정
         return "articles/show";
@@ -61,18 +61,18 @@ public class ArticleController {
     @GetMapping("/articles")
     public String index(Model model){
         //1:모든 Article을 가져온다!
-        List<Article> articleEntityList=articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        List<Posts> postsEntityList =articleRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         //2:가져온 Article 묶음을 뷰로 전달!
-        model.addAttribute("articleList",articleEntityList);
+        model.addAttribute("articleList", postsEntityList);
         //3:뷰 페이지를 설정!
         return "articles/index";
     }
     @GetMapping("/articles/{id}/edit")
     public String edit(@PathVariable Long id ,Model model){
         // 수정할 데이터를 가져오기!
-        Article articleEntity = articleRepository.findById(id).orElse(null);
+        Posts postsEntity = articleRepository.findById(id).orElse(null);
         //모델에 데이터를 등록!
-        model.addAttribute("article",articleEntity);
+        model.addAttribute("article", postsEntity);
         //뷰 페이지 설정
         return "articles/edit";
     }
@@ -81,22 +81,22 @@ public class ArticleController {
         log.info(form.toString());
 
         //1:Dto를 엔티티로 변환
-        Article articleEntity =  form.toEntity();
+        Posts postsEntity =  form.toEntity();
         //2:엔티티를 DB로 저장한다
         //2-1 DB에서 기존 데이터를 가져온다
-        Article target =   articleRepository.findById(articleEntity.getId()).orElse(null);
+        Posts target =   articleRepository.findById(postsEntity.getId()).orElse(null);
         //2-2 기존 데이터가 있다면 값을 갱신한다
         if(target != null){
-            articleRepository.save(articleEntity);
+            articleRepository.save(postsEntity);
         }
         //3:수정 결과 페이지로 리다이렉트 한다
-        return "redirect:/articles/"+articleEntity.getId();
+        return "redirect:/articles/"+ postsEntity.getId();
     }
     @GetMapping("/articles/{id}/delete")
     public String delete(@PathVariable  Long id, RedirectAttributes rttr){
         log.info("삭제요청이 들어왔습니다.");
         //1: 삭제 대상을 가져온다
-        Article target=articleRepository.findById(id).orElse(null);
+        Posts target=articleRepository.findById(id).orElse(null);
         //2: 대상을 삭제한다
         if(target != null) {
             articleRepository.delete(target);

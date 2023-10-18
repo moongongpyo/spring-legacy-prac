@@ -1,6 +1,6 @@
 package com.example.KangnamShare.dto;
 
-import com.example.KangnamShare.entity.Article;
+import com.example.KangnamShare.entity.Posts;
 import lombok.*;
 
 @AllArgsConstructor
@@ -16,8 +16,8 @@ public class ArticleDTO {
     private String categories;
 
     private Long price;
-    public Article toEntity() {
-        return new Article(id,title,content,username,categories,price);
+    public Posts toEntity() {
+        return new Posts(id,title,content,username,categories,price);
     }
 
 

@@ -1,11 +1,11 @@
-INSERT INTO article(id,title,content,username) VALUES (1,'가가가가','1111','최민성');
-INSERT INTO article(id,title,content,username) VALUES (2,'나나나나','2222','최민성');
-INSERT INTO article(id,title,content,username) VALUES (3,'다다다다','3333','최민성');
+INSERT INTO posts(id,title,content,username) VALUES (1,'가가가가','1111','최민성');
+INSERT INTO posts(id,title,content,username) VALUES (2,'나나나나','2222','최민성');
+INSERT INTO posts(id,title,content,username) VALUES (3,'다다다다','3333','최민성');
 
----------article 더미 데이터
-INSERT INTO article(id,title,content,username) VALUES (4,'당신의 인생 영화는?','댓글 ㄱ','최민성');
-INSERT INTO article(id,title,content,username) VALUES (5,'당신의 소울 푸드는?','댓글 ㄱㄱ','최민성');
-INSERT INTO article(id,title,content,username) VALUES (6,'당신의 취미는?','댓글 ㄱㄱㄱ','최민성');
+---------posts 더미 데이터
+INSERT INTO posts(id,title,content,username) VALUES (4,'당신의 인생 영화는?','댓글 ㄱ','최민성');
+INSERT INTO posts(id,title,content,username) VALUES (5,'당신의 소울 푸드는?','댓글 ㄱㄱ','최민성');
+INSERT INTO posts(id,title,content,username) VALUES (6,'당신의 취미는?','댓글 ㄱㄱㄱ','최민성');
 
 --comment 더미 데이터
 --4번 게시글의 댓글들

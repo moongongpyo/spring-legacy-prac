@@ -12,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor//디폴트 생성자 추가
 @ToString
 @Getter
-public class Article {
+public class Posts {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)//DB가 id를 자동생성 어노테이션
     private  Long id;
@@ -30,17 +30,17 @@ public class Article {
     private String categories;
 
     @Column Long price;
-    public void patch(Article article){
-        if(article.title != null)
-            this.title = article.title;
-        if(article.content != null)
-            this.content = article.content;
-        if(article.username != null)
-            this.username = article.username;
-        if(article.categories != null)
-            this.categories = article.categories;
-        if(article.price != null)
-            this.price = article.price;
+    public void patch(Posts posts){
+        if(posts.title != null)
+            this.title = posts.title;
+        if(posts.content != null)
+            this.content = posts.content;
+        if(posts.username != null)
+            this.username = posts.username;
+        if(posts.categories != null)
+            this.categories = posts.categories;
+        if(posts.price != null)
+            this.price = posts.price;
 
     }
 

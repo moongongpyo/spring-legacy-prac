@@ -1,7 +1,7 @@
 package com.example.KangnamShare.service;
 
 import com.example.KangnamShare.dto.CommentDto;
-import com.example.KangnamShare.entity.Article;
+import com.example.KangnamShare.entity.Posts;
 import com.example.KangnamShare.entity.Comment;
 import com.example.KangnamShare.repository.ArticleRepository;
 import com.example.KangnamShare.repository.CommentRepository;
@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 @Slf4j
@@ -49,10 +48,10 @@ public class CommentService {
     public CommentDto create(CommentDto dto) {
 
         //게시글 조회 및 예외 발생
-        Article article = articleRepository.findById(dto.getArticleId())
+        Posts posts = articleRepository.findById(dto.getArticleId())
                 .orElseThrow(()->new IllegalArgumentException("댓글 생성 실패! 대상 게시글이 없습니다."));
         //댓들 엔티티 생성
-        Comment comment = Comment.createComment(dto,article);
+        Comment comment = Comment.createComment(dto, posts);
         //댓글 인티티를 DB로 저장
         Comment created = commentRepository.save(comment);
         //DTO로 변경하여 반환

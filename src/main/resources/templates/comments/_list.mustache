@@ -11,7 +11,7 @@
                         data-bs-id="{{id}}"
                         data-bs-nickname="{{username}}"
                         data-bs-body="{{body}}"
-                        data-bs-article-id="{{articleId}}">수정</button>
+                        data-bs-posts-id="{{articleId}}">수정</button>
                 <!--댓글 삭제 버튼-->
                 <button type="button"
                         class ="btn btn-sm btn-outline-danger comment-delete-btn"
@@ -47,7 +47,7 @@
                     </div>
                     <!-- 히든 인풋 -->
                     <input type="hidden" id="edit-comment-id">
-                    <input type="hidden" id="edit-comment-article-id">
+                    <input type="hidden" id="edit-comment-posts-id">
                     <!-- 전송 버튼 -->
                     <button type="button" class="btn btn-outline-primary btn-sm" id="comment-update-btn">수정 완료</button>
                 </form>
@@ -68,13 +68,13 @@
             const id = triggerBtn.getAttribute("data-bs-id");
             const username = triggerBtn.getAttribute("data-bs-nickname");
             const body = triggerBtn.getAttribute("data-bs-body");
-            const articleId = triggerBtn.getAttribute("data-bs-article-id");
+            const articleId = triggerBtn.getAttribute("data-bs-posts-id");
             console.log(`${id}, ${username}, ${body}, ${articleId}`);
             // 데이터를 반영
             document.querySelector("#edit-comment-username").value = username;
             document.querySelector("#edit-comment-body").value = body;
             document.querySelector("#edit-comment-id").value = id;
-            document.querySelector("#edit-comment-article-id").value = articleId;
+            document.querySelector("#edit-comment-posts-id").value = articleId;
         });
     }
 
@@ -92,7 +92,7 @@
                 id: document.querySelector("#edit-comment-id").value,
                 username: document.querySelector("#edit-comment-username").value,
                 body: document.querySelector("#edit-comment-body").value,
-                article_id: document.querySelector("#edit-comment-article-id").value
+                article_id: document.querySelector("#edit-comment-posts-id").value
 
 
             }

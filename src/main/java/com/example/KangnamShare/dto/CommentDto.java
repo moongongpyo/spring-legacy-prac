@@ -24,7 +24,7 @@ public class CommentDto {
                 comment.getId(),
                 comment.getUsername(),
                 comment.getBody(),
-                comment.getArticle().getId()
+                comment.getPosts().getId()
 
         );
 
